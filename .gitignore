@@ -29,3 +29,12 @@ uploads/
 .DS_Store
 .idea/
 .vscode/
+
+# Python virtualenvs & caches
+.venv/
+**/__pycache__/
+**/.pytest_cache/
+robot_tests/.venv/
+robot_tests/output.xml
+robot_tests/log.html
+robot_tests/report.html

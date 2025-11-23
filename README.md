@@ -33,6 +33,30 @@ Environment variables:
 - `SESSION_SECRET` – supply a strong value in production
 - `REDIS_URL` – optional Redis connection string for Rack::Attack cache
 
+### Robot Framework functional exploits
+The `robot_tests/vulnerable_app_exploits.robot` suite shows how a generic functional test tool can exercise multiple checklist items (SQL injection, stored XSS, unrestricted upload, IDOR) without requiring specialized scanners.
+
+#### Install Robot Framework
+You can install globally with `pipx` or inside a virtualenv. Example using `pip`:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install robotframework robotframework-requests requests
+```
+
+> **Note**: modern Robot Framework uses the `robot` CLI. Older tutorials reference `pybot`, which has been removed.
+
+#### Run the exploit suite
+
+```bash
+export VULN_BASE_URL=http://localhost:4567   # optional override, defaults to this value
+robot robot_tests/vulnerable_app_exploits.robot
+```
+
+Expected results: tests should **pass** against `vulnerable_app` (demonstrating the insecurity) and **fail** against `secure_app`.
+
 The secure app enforces:
 - Strong password policy and hashed credentials (AUTH-001)
 - Role-based access control for admin endpoints (EoP mitigations)
