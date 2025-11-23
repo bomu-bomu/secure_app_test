@@ -1,0 +1,39 @@
+| Threat | Goal | Question | Attack |
+| --- | --- | --- | --- |
+| Spoofing | "I want to become a legitimate user or system." | Can I guess the password using brute-force or credential stuffing? | Brute-force / Credential Stuffing |
+| Spoofing | "I want to become a legitimate user or system." | Can I steal the session token (e.g., via XSS reading document.cookie)? | XSS (Cross-Site Scripting) / Session Hijacking |
+| Spoofing | "I want to become a legitimate user or system." | Can I forge a token (e.g., changing a JWT signature algorithm to "None")? | JWT Algorithm Confusion (None algorithm switch) |
+| Spoofing | "I want to become a legitimate user or system." | Can I replay a login packet captured previously (if HTTPS is not used)? | Packet Replay Attack (Man-in-the-Middle if no HTTPS) |
+| Spoofing | "I want to become a legitimate user or system." | Can I skip the login page by simply typing /dashboard (Forced Browsing)? | Forced Browsing / Missing Authentication Check |
+| Spoofing | "I want to become a legitimate user or system." | Can one microservice talk to another without proving its identity (lack of mTLS)? | Internal Spoofing / Lack of mTLS |
+| Spoofing | "I want to become a legitimate user or system." | Does the system reveal if a username exists on the "Forgot Password" or Login page (User Enumeration)? | User Enumeration |
+| Tampering | "I want to corrupt the data or change the logic." | Can I intercept the request (e.g., via proxy) and change the price from 100 to 1 (Parameter Tampering)? | Parameter Tampering (e.g., via Proxy) |
+| Tampering | "I want to corrupt the data or change the logic." | Can I edit data I shouldn't touch (Mass Assignment, e.g., sending "isAdmin": true in a profile update)? | Mass Assignment |
+| Tampering | "I want to corrupt the data or change the logic." | Can I corrupt the database (e.g., SQL Injection using '; DROP TABLE users; --)? | SQL Injection |
+| Tampering | "I want to corrupt the data or change the logic." | Can I make your code execute my script (e.g., Stored XSS by putting HTML tags in a username field)? | Stored XSS (Cross-Site Scripting) |
+| Tampering | "I want to corrupt the data or change the logic." | Can I break the workflow by skipping steps (e.g., jumping from Pay straight to Receipt)? | Business Logic Flaw / Workflow Bypass |
+| Tampering | "I want to corrupt the data or change the logic." | Is input validation performed only on the client (browser) instead of strictly enforced on the server? | Client-Side Validation Bypass / Broken Validation |
+| Tampering | "I want to corrupt the data or change the logic." | Is there a process to verify that third-party libraries haven't been compromised (Dependency Tampering)? | Supply Chain Attack / Dependency Tampering |
+| Repudiation | "I want to do damage and leave no proof." | Can I delete the evidence by gaining access to the database and deleting audit_log rows? | Log Deletion / Audit Log Tampering |
+| Repudiation | "I want to do damage and leave no proof." | Can I confuse the logs (Log Injection, e.g., using a username input to create fake entries)? | Log Injection |
+| Repudiation | "I want to do damage and leave no proof." | Can I blame someone else (e.g., using a VPN or public Wi-Fi to mask my identity)? | Traffic Masking (VPN/Public Wi-Fi) |
+| Repudiation | "I want to do damage and leave no proof." | Do high-value actions (like "Export All Data") fail to trigger an alert or log entry? | Insufficient Logging / Missing Context |
+| Repudiation | "I want to do damage and leave no proof." | Can the application write to the logs and also delete or overwrite them (i.e., logs are not append-only)? | Non-Append-Only Log Abuse |
+| Repudiation | "I want to do damage and leave no proof." | Do the logs capture sufficient context (who did it, when they did it, and what data was changed)? | Missing Log Context / Insufficient Audit Trail |
+| Information Disclosure | "I want to read your secrets." | Can I make the server crash to print a "Stack Trace" revealing file paths, database schema, or code logic (Error Handling)? | Error Handling Abuse / Stack Trace Leakage |
+| Information Disclosure | "I want to read your secrets." | Can I read other people's data by changing the ID in the URL (IDOR)? | IDOR (Insecure Direct Object Reference) |
+| Information Disclosure | "I want to read your secrets." | Can I find secrets in the browser by using "View Source" to look for commented-out code or hardcoded API keys in JavaScript? | View Source / Secrets in Client-Side Code |
+| Information Disclosure | "I want to read your secrets." | Is the data "naked on the wire" (unencrypted) during internal communication (Service-to-Service Man-in-the-Middle)? | Man-in-the-Middle (MiTM) / Lack of Encryption in Transit |
+| Information Disclosure | "I want to read your secrets." | Are PII, passwords, and secrets encrypted in the database (Encryption at Rest)? | Lack of Encryption at Rest |
+| Information Disclosure | "I want to read your secrets." | Is sensitive data (like Session IDs or tokens) unintentionally logged or passed in URL parameters? | Sensitive Data Leakage (in Logs/URLs) |
+| Denial of Service | "I want to take you offline." | Can I lock out a legitimate user by intentionally failing login attempts repeatedly (Account Lockout Abuse)? | Account Lockout Abuse |
+| Denial of Service | "I want to take you offline." | Can I fill up your storage by repeatedly uploading a large file (Unrestricted Uploads)? | Unrestricted Uploads / Resource Exhaustion |
+| Denial of Service | "I want to take you offline." | Can I exhaust your CPU by entering a malicious string into a field validated by a weak Regular Expression (ReDoS)? | ReDoS (Regular Expression Denial of Service) |
+| Denial of Service | "I want to take you offline." | Can I starve the database by forcing a massive table scan (e.g., using wildcard abuse like %%%%% in a search)? | Wildcard Abuse / Expensive Operations |
+| Denial of Service | "I want to take you offline." | Is there a limit on how many requests a user/IP can send per minute (Rate Limiting)? | Lack of Rate Limiting |
+| Denial of Service | "I want to take you offline." | Can a user trigger a complex and time-consuming database operation (Expensive Operations) that locks up the system? | Expensive Operations / Algorithmic Complexity Attack |
+| Elevation of Privilege | "I want to be the Admin." | Can I execute admin functions by guessing a hidden URL (Forced Browsing to /admin/deleteUser)? | Forced Browsing / Missing Function Level Access Control |
+| Elevation of Privilege | "I want to be the Admin." | Can I abuse "Forgot Password" (e.g., using Host Header Injection to receive the reset link)? | Host Header Injection / Password Reset Abuse |
+| Elevation of Privilege | "I want to be the Admin." | Did you leave the back door open (Default Credentials, e.g., trying admin / admin)? | Default Credentials |
+| Elevation of Privilege | "I want to be the Admin." | Is the role check done only by hiding the button in the UI, rather than strictly enforced in the code? | Client-Side Authorization Check / Missing Authorization |
+| Elevation of Privilege | "I want to be the Admin." | Is the system set to "Allow by Default" rather than "Deny by Default" (Principle of Least Privilege)? | "Allow by Default" Configuration |
