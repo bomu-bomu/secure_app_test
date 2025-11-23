@@ -1,0 +1,31 @@
+# Bundler / Ruby build artifacts
+.bundle/
+/vendor/bundle/
+*.gem
+*.rbc
+
+# Logs & temp files
+log/
+*.log
+/tmp/
+/tmp/**/*
+
+# Application secrets
+.env
+.env.*
+credentials.yml.enc
+
+# SQLite / demo databases (schemas stay tracked)
+*.db
+*.sqlite3
+**/db/*.db
+**/db/*.sqlite3
+
+# Generated uploads or caches
+uploads/
+*.tmp
+
+# macOS / IDE noise
+.DS_Store
+.idea/
+.vscode/
